@@ -6,10 +6,10 @@ import Typography from '@material-ui/core/Typography';
 class Header extends Component {
   render() {
     return (
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="title" color="inherit">
-            Title
+            Macro Calculator
           </Typography>
         </Toolbar>
       </AppBar>

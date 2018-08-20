@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Header from './header';
+import CalcInput from './calcInput';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
+      light: '#819ca9',
+      main: '#546e7a',
+      dark: '#29434e',
+      contrastText: '#ffffff',
+    },
+    secondary: {
       light: '#ffd149',
       main: '#ffa000',
       dark: '#c67100',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#82f7ff',
-      main: '#40c4ff',
-      dark: '#0094cc',
       contrastText: '#000000',
     },
   },
@@ -25,6 +26,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div className="App">
           <Header />
+          <CalcInput />
         </div>
       </MuiThemeProvider>
     );

@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <AppBar position="static" color="primary">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography variant='display1' align='center' color="contrastText">
             Macro Calculator
           </Typography>
         </Toolbar>

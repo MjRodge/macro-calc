@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import BodyInfo from './bodyInfo';
 import ActivityInfo from './activityInfo';
 import Goal from './goal';
+import MacroOutput from './macroOutput';
 import './css/paper.css';
 
 function getSteps() {
@@ -30,6 +31,8 @@ class CalcInput extends Component {
       gender: '',
       activity: '',
       goal: '',
+      rce: '',
+      totalCals: '',
     };
   }
 
@@ -57,6 +60,40 @@ class CalcInput extends Component {
     this.setState({ goal: passedGoal })
   };
 
+//Calculate macro information when finish button is pressed
+  calcRestingCals = () => {
+    if (this.state.gender === "male") {
+      let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5);
+      console.log(rce);
+      this.setState({ rce: rce }, () => {
+        this.calcTotalCals();
+      });
+    } else {
+      let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)-161);
+      console.log(rce);
+      this.setState({ rce: rce });
+    }
+  }
+  calcTotalCals = () => {
+    if (this.state.activity === "sedentary") {
+      let totalCals = (this.state.rce*1.2);
+      this.setState({ totalCals: totalCals });
+      console.log(totalCals);
+    } else if (this.state.activity === "light") {
+      let totalCals = (this.state.rce*1.375);
+      this.setState({ totalCals: totalCals });
+      console.log(totalCals);
+    } else if (this.state.activity === "moderate") {
+      let totalCals = (this.state.rce*1.55);
+      this.setState({ totalCals: totalCals });
+      console.log(totalCals);
+    } else {
+      let totalCals = (this.state.rce*1.725);
+      this.setState({ totalCals: totalCals });
+      console.log(totalCals);
+    }
+  }
+
 //handles for stepper
   handleNext = () => {
     const { activeStep } = this.state;
@@ -64,19 +101,25 @@ class CalcInput extends Component {
       activeStep: activeStep + 1,
     });
   };
-
   handleBack = () => {
     const { activeStep } = this.state;
     this.setState({
       activeStep: activeStep - 1,
     });
   };
-
   handleReset = () => {
     this.setState({
       activeStep: 0,
     });
   };
+  handleFinish = () => {
+    const { activeStep } = this.state;
+    this.setState({
+      activeStep: activeStep + 1,
+    });
+    //DO MACRO FUNCTION HERE
+    this.calcRestingCals();
+  }
 
   render() {
     const steps = getSteps();
@@ -95,8 +138,9 @@ class CalcInput extends Component {
         <div>
           {this.state.activeStep === steps.length ? (
             <div>
-              <Typography >All steps completed</Typography>
-              <Button onClick={this.handleReset} style={style.formButtons}>Reset</Button>
+              <MacroOutput
+                passedRCE={this.state.rce}/>
+              <Button variant="contained" color="secondary" onClick={this.handleReset} style={style.formButtons}>Reset</Button>
             </div>
           ) : (
             <div>
@@ -115,21 +159,37 @@ class CalcInput extends Component {
                 <Goal
                   passedGoal={this.handlePassedGoal} />
                 : null}
-              <div className="form-input-buttons">
-                <Button variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={this.handleBack}
-                  style={style.formButtons}
-                >
-                  Back
-                </Button>
-              </div>
+              {activeStep === steps.length - 1 ?
+                <div className="form-input-buttons">
+                  <Button variant="contained" color="secondary" onClick={this.handleFinish} style={style.formButtons}>
+                    Finish
+                  </Button>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={this.handleBack}
+                    style={style.formButtons}
+                  >
+                    Back
+                  </Button>
+                </div>
+                :
+                <div className="form-input-buttons">
+                  <Button variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
+                    Next
+                  </Button>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={this.handleBack}
+                    style={style.formButtons}
+                  >
+                    Back
+                  </Button>
+                </div>
+              }
             </div>
           )}
         </div>
+        <h3>rce: {this.state.rce}</h3>
         <h3>age: {this.state.age}</h3>
         <h3>weight: {this.state.weight}</h3>
         <h3>height: {this.state.height}</h3>

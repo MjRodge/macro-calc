@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 
 const style = {
@@ -16,32 +18,39 @@ class BodyInfo extends Component {
       age: '',
       height: '',
       weight: '',
+      gender: '',
     };
   }
 
-  handleAge = name => event => {
+  handleAge = age => event => {
     this.setState({
-      [name]: event.target.value,
+      [age]: event.target.value,
     });
     this.props.passedAge(event.target.value);
   };
-  handleHeight = name => event => {
+  handleHeight = height => event => {
     this.setState({
-      [name]: event.target.value,
+      [height]: event.target.value,
     });
     this.props.passedHeight(event.target.value);
   };
-  handleWeight = name => event => {
+  handleWeight = weight => event => {
     this.setState({
-      [name]: event.target.value,
+      [weight]: event.target.value,
     });
     this.props.passedWeight(event.target.value);
+  };
+  handleGender = gender => event => {
+    this.setState({
+      [gender]: event.target.value,
+    });
+    this.props.passedGender(event.target.value);
   };
 
   render() {
     return (
       <Paper elevation={1} className="input-paper">
-        <Typography variant='display3' align='center'>
+        <Typography variant='display1' align='center'>
           Body Information
         </Typography>
         <TextField
@@ -51,9 +60,6 @@ class BodyInfo extends Component {
           value={this.state.age}
           onChange={this.handleAge("age")}
           type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
           margin="normal"
         />
         <TextField
@@ -63,10 +69,10 @@ class BodyInfo extends Component {
           value={this.state.height}
           onChange={this.handleHeight("height")}
           type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
           margin="normal"
+          InputProps={{
+            endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+          }}
         />
         <TextField
           style={style.textField}
@@ -75,12 +81,26 @@ class BodyInfo extends Component {
           value={this.state.weight}
           onChange={this.handleWeight("weight")}
           type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
           margin="normal"
+          InputProps={{
+            endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+          }}
         />
-        <h3>{this.state.age}</h3>
+        <TextField
+          style={style.textField}
+          select
+          label="Gender"
+          value={this.state.gender}
+          onChange={this.handleGender("gender")}
+          margin="normal"
+        >
+          <MenuItem value="male">
+            Male
+          </MenuItem>
+          <MenuItem value="female">
+            Female
+          </MenuItem>
+        </TextField>
       </Paper>
     );
   }

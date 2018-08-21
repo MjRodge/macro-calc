@@ -27,6 +27,7 @@ class CalcInput extends Component {
       age: '',
       height: '',
       weight: '',
+      gender: '',
     };
   }
 
@@ -38,6 +39,9 @@ class CalcInput extends Component {
   };
   handlePassedWeight = passedWeight => {
     this.setState({ weight: passedWeight })
+  };
+  handlePassedGender = passedGender => {
+    this.setState({ gender: passedGender })
   };
 
   handleNext = () => {
@@ -86,7 +90,8 @@ class CalcInput extends Component {
                 <BodyInfo
                   passedAge={this.handlePassedAge}
                   passedHeight={this.handlePassedHeight}
-                  passedWeight={this.handlePassedWeight} />
+                  passedWeight={this.handlePassedWeight}
+                  passedGender={this.handlePassedGender} />
                 : null}
               {activeStep === 1 ? <ActivityInfo /> : null}
               {activeStep === 2 ? <Goal /> : null}
@@ -108,6 +113,7 @@ class CalcInput extends Component {
         <h1>age: {this.state.age}</h1>
         <h1>weight: {this.state.weight}</h1>
         <h1>height: {this.state.height}</h1>
+        <h1>gender: {this.state.gender}</h1>
       </div>
     );
   }

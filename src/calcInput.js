@@ -33,6 +33,7 @@ class CalcInput extends Component {
       goal: '',
       rce: '',
       totalCals: '',
+      goalCals: '',
     };
   }
 
@@ -66,31 +67,61 @@ class CalcInput extends Component {
       let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5);
       console.log(rce);
       this.setState({ rce: rce }, () => {
+        //ensure that rce state set before calculating further
         this.calcTotalCals();
       });
     } else {
       let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)-161);
       console.log(rce);
-      this.setState({ rce: rce });
+      this.setState({ rce: rce }, () => {
+        //ensure that rce state set before calculating further
+        this.calcTotalCals();
+      });
     }
   }
   calcTotalCals = () => {
     if (this.state.activity === "sedentary") {
       let totalCals = (this.state.rce*1.2);
-      this.setState({ totalCals: totalCals });
+      this.setState({ totalCals: totalCals }, () => {
+        //ensure that totalCals state set before calculating further
+        this.calcGoalCals();
+      });
       console.log(totalCals);
     } else if (this.state.activity === "light") {
       let totalCals = (this.state.rce*1.375);
-      this.setState({ totalCals: totalCals });
+      this.setState({ totalCals: totalCals }, () => {
+        //ensure that totalCals state set before calculating further
+        this.calcGoalCals();
+      });
       console.log(totalCals);
     } else if (this.state.activity === "moderate") {
       let totalCals = (this.state.rce*1.55);
-      this.setState({ totalCals: totalCals });
+      this.setState({ totalCals: totalCals }, () => {
+        //ensure that totalCals state set before calculating further
+        this.calcGoalCals();
+      });
       console.log(totalCals);
     } else {
       let totalCals = (this.state.rce*1.725);
-      this.setState({ totalCals: totalCals });
+      this.setState({ totalCals: totalCals }, () => {
+        //ensure that totalCals state set before calculating further
+        this.calcGoalCals();
+      });
       console.log(totalCals);
+    }
+  }
+  calcGoalCals = () => {
+    if (this.state.goal === "lose") {
+      let goalCals = (this.state.totalCals-(this.state.totalCals*.2));
+      this.setState({ goalCals: goalCals });
+      console.log(goalCals);
+    } else if (this.state.goal === "gain") {
+      let goalCals = (this.state.totalCals+(this.state.totalCals*.2));
+      this.setState({ goalCals: goalCals });
+      console.log(goalCals);
+    } else {
+      let goalCals = this.state.totalCals;
+      this.setState({ goalCals: goalCals });
     }
   }
 
@@ -139,8 +170,22 @@ class CalcInput extends Component {
           {this.state.activeStep === steps.length ? (
             <div>
               <MacroOutput
-                passedRCE={this.state.rce}/>
-              <Button variant="contained" color="secondary" onClick={this.handleReset} style={style.formButtons}>Reset</Button>
+                passedRCE={this.state.rce}
+                passedTotalCals={this.state.totalCals}
+                passedGoalCals={this.state.goalCals}/>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleReset}
+                style={style.formButtons}>
+                  Reset
+              </Button>
+              <Button
+                disabled={activeStep === 0}
+                onClick={this.handleBack}
+                style={style.formButtons}>
+                Back
+              </Button>
             </div>
           ) : (
             <div>

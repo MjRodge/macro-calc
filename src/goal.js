@@ -70,13 +70,19 @@ class Goal extends Component {
         <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handlePanel('panel3')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Radio
-              checked={this.state.activityLevel === 'gain'}
+              checked={this.state.goal === 'gain'}
               onChange={this.handleSelection}
               value="gain"
               name="goal"
             />
             <Typography>Gain</Typography>
           </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+              sit amet blandit leo lobortis eget.
+            </Typography>
+          </ExpansionPanelDetails>
         </ExpansionPanel>
       </Paper>
     );

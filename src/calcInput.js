@@ -28,9 +28,12 @@ class CalcInput extends Component {
       height: '',
       weight: '',
       gender: '',
+      activity: '',
+      goal: '',
     };
   }
 
+//handle props passed from bodyInfo.js component
   handlePassedAge = passedAge => {
     this.setState({ age: passedAge })
   };
@@ -44,6 +47,17 @@ class CalcInput extends Component {
     this.setState({ gender: passedGender })
   };
 
+//handle props passed from activityInfo.js Component
+  handlePassedActivity = passedActivity => {
+    this.setState({ activity: passedActivity })
+  };
+
+//handle props passed from goal.js Component
+  handlePassedGoal = passedGoal => {
+    this.setState({ goal: passedGoal })
+  };
+
+//handles for stepper
   handleNext = () => {
     const { activeStep } = this.state;
     this.setState({
@@ -93,8 +107,14 @@ class CalcInput extends Component {
                   passedWeight={this.handlePassedWeight}
                   passedGender={this.handlePassedGender} />
                 : null}
-              {activeStep === 1 ? <ActivityInfo /> : null}
-              {activeStep === 2 ? <Goal /> : null}
+              {activeStep === 1 ?
+                <ActivityInfo
+                  passedActivity={this.handlePassedActivity} />
+                : null}
+              {activeStep === 2 ?
+                <Goal
+                  passedGoal={this.handlePassedGoal} />
+                : null}
               <div className="form-input-buttons">
                 <Button variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
@@ -110,10 +130,12 @@ class CalcInput extends Component {
             </div>
           )}
         </div>
-        <h1>age: {this.state.age}</h1>
-        <h1>weight: {this.state.weight}</h1>
-        <h1>height: {this.state.height}</h1>
-        <h1>gender: {this.state.gender}</h1>
+        <h3>age: {this.state.age}</h3>
+        <h3>weight: {this.state.weight}</h3>
+        <h3>height: {this.state.height}</h3>
+        <h3>gender: {this.state.gender}</h3>
+        <h3>activity: {this.state.activity}</h3>
+        <h3>goal: {this.state.goal}</h3>
       </div>
     );
   }

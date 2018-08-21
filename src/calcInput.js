@@ -34,6 +34,9 @@ class CalcInput extends Component {
       rce: '',
       totalCals: '',
       goalCals: '',
+      totalProtein: '',
+      totalFat: '',
+      totalCarbs: '',
     };
   }
 
@@ -64,14 +67,14 @@ class CalcInput extends Component {
 //Calculate macro information when finish button is pressed
   calcRestingCals = () => {
     if (this.state.gender === "male") {
-      let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5);
+      let rce = (Math.floor((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5));
       console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
         this.calcTotalCals();
       });
     } else {
-      let rce = ((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)-161);
+      let rce = (Math.floor((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)-161));
       console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
@@ -81,28 +84,28 @@ class CalcInput extends Component {
   }
   calcTotalCals = () => {
     if (this.state.activity === "sedentary") {
-      let totalCals = (this.state.rce*1.2);
+      let totalCals = (Math.floor(this.state.rce*1.2));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
       console.log(totalCals);
     } else if (this.state.activity === "light") {
-      let totalCals = (this.state.rce*1.375);
+      let totalCals = (Math.floor(this.state.rce*1.375));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
       console.log(totalCals);
     } else if (this.state.activity === "moderate") {
-      let totalCals = (this.state.rce*1.55);
+      let totalCals = (Math.floor(this.state.rce*1.55));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
       console.log(totalCals);
     } else {
-      let totalCals = (this.state.rce*1.725);
+      let totalCals = (Math.floor(this.state.rce*1.725));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
@@ -112,17 +115,34 @@ class CalcInput extends Component {
   }
   calcGoalCals = () => {
     if (this.state.goal === "lose") {
-      let goalCals = (this.state.totalCals-(this.state.totalCals*.2));
-      this.setState({ goalCals: goalCals });
+      let goalCals = (Math.floor(this.state.totalCals-(this.state.totalCals*.2)));
+      this.setState({ goalCals: goalCals }, () => {
+        //ensure that goalCals state set before calculating further
+        this.calcMacroSplit();
+      });
       console.log(goalCals);
     } else if (this.state.goal === "gain") {
-      let goalCals = (this.state.totalCals+(this.state.totalCals*.2));
-      this.setState({ goalCals: goalCals });
+      let goalCals = (Math.floor(this.state.totalCals+(this.state.totalCals*.2)));
+      this.setState({ goalCals: goalCals }, () => {
+        //ensure that goalCals state set before calculating further
+        this.calcMacroSplit();
+      });
       console.log(goalCals);
     } else {
       let goalCals = this.state.totalCals;
-      this.setState({ goalCals: goalCals });
+      this.setState({ goalCals: goalCals }, () => {
+        //ensure that goalCals state set before calculating further
+        this.calcMacroSplit();
+      });
     }
+  }
+  calcMacroSplit = () => {
+    let totalProtein = (Math.floor((this.state.weight*2.2)*.825));
+    this.setState({ totalProtein: totalProtein });
+    let totalFat = (Math.floor((this.state.goalCals*.18)/9));
+    this.setState({ totalFat: totalFat });
+    let totalCarbs = (Math.floor((this.state.goalCals-(totalProtein*4)-(totalFat*9))/4));
+    this.setState({ totalCarbs: totalCarbs });
   }
 
 //handles for stepper
@@ -149,6 +169,7 @@ class CalcInput extends Component {
       activeStep: activeStep + 1,
     });
     //DO MACRO FUNCTION HERE
+    //calcRestingCals always only function called - first in chain
     this.calcRestingCals();
   }
 
@@ -172,7 +193,10 @@ class CalcInput extends Component {
               <MacroOutput
                 passedRCE={this.state.rce}
                 passedTotalCals={this.state.totalCals}
-                passedGoalCals={this.state.goalCals}/>
+                passedGoalCals={this.state.goalCals}
+                passedProtein={this.state.totalProtein}
+                passedFat={this.state.totalFat}
+                passedCarbs={this.state.totalCarbs}/>
               <Button
                 variant="contained"
                 color="secondary"

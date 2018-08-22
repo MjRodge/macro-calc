@@ -3,6 +3,10 @@
   padding: 6vw;
 }
 
+.macro-output {
+  height: 40vh;
+}
+
 .form-input-buttons {
   width: 85%;
   margin: 6vw;

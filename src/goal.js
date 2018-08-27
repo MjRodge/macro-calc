@@ -6,8 +6,6 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Radio from '@material-ui/core/Radio';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
 class Goal extends Component {
   constructor(props) {
@@ -33,57 +31,62 @@ class Goal extends Component {
     const { expanded } = this.state;
     return (
       <Paper elevation={1} className="input-paper">
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handlePanel('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Radio
-              checked={this.state.goal === 'lose'}
-              onChange={this.handleSelection}
-              value="lose"
-              name="goal"
-            />
-            <Typography>Lose</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handlePanel('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Radio
-              checked={this.state.goal === 'maintain'}
-              onChange={this.handleSelection}
-              value="maintain"
-              name="goal"
-            />
-            <Typography>Maintain</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handlePanel('panel3')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Radio
-              checked={this.state.goal === 'gain'}
-              onChange={this.handleSelection}
-              value="gain"
-              name="goal"
-            />
-            <Typography>Gain</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        <Typography variant='display1' align='center'>
+          Goal
+        </Typography>
+        <div className="expansion">
+          <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handlePanel('panel1')}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Radio
+                checked={this.state.goal === 'lose'}
+                onChange={this.handleSelection}
+                value="lose"
+                name="goal"
+              />
+              <Typography>Lose</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                sit amet blandit leo lobortis eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handlePanel('panel2')}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Radio
+                checked={this.state.goal === 'maintain'}
+                onChange={this.handleSelection}
+                value="maintain"
+                name="goal"
+              />
+              <Typography>Maintain</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                sit amet blandit leo lobortis eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handlePanel('panel3')}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Radio
+                checked={this.state.goal === 'gain'}
+                onChange={this.handleSelection}
+                value="gain"
+                name="goal"
+              />
+              <Typography>Gain</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                sit amet blandit leo lobortis eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
       </Paper>
     );
   }

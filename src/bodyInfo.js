@@ -71,7 +71,7 @@ class BodyInfo extends Component {
           type="number"
           margin="normal"
           InputProps={{
-            endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
           }}
         />
         <TextField
@@ -83,7 +83,7 @@ class BodyInfo extends Component {
           type="number"
           margin="normal"
           InputProps={{
-            endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{this.props.passedWeightUnit}</InputAdornment>,
           }}
         />
         <TextField

@@ -21,12 +21,33 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menu: false,
+      heightUnit: 'cm',
+      weightUnit: 'kg',
+    };
+  }
+  handlePassedHeightUnit = passedHeightUnit => {
+    this.setState({ heightUnit: passedHeightUnit })
+  };
+  handlePassedWeightUnit = passedWeightUnit => {
+    this.setState({ weightUnit: passedWeightUnit })
+  };
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-          <Header />
-          <CalcInput />
+          <Header
+            passedHeightUnit={this.handlePassedHeightUnit}
+            passedWeightUnit={this.handlePassedWeightUnit} />
+          <CalcInput
+            passedHeightUnit={this.state.heightUnit}
+            passedWeightUnit={this.state.weightUnit} />
+          <h1>{this.state.heightUnit}</h1>
+          <h1>{this.state.weightUnit}</h1>
         </div>
       </MuiThemeProvider>
     );

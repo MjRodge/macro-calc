@@ -67,6 +67,7 @@ class CalcInput extends Component {
 
 //Calculate macro information when finish button is pressed
   calcRestingCals = () => {
+    //ADD CHECK/CONVERSION FOR MEASUREMENT UNITS [THIS.PROPS.PASSEDWEIGHTUNIT]
     if (this.state.gender === "male") {
       let rce = (Math.floor((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5));
       console.log(rce);
@@ -221,7 +222,9 @@ class CalcInput extends Component {
                   passedAge={this.handlePassedAge}
                   passedHeight={this.handlePassedHeight}
                   passedWeight={this.handlePassedWeight}
-                  passedGender={this.handlePassedGender} />
+                  passedGender={this.handlePassedGender}
+                  passedHeightUnit={this.props.passedHeightUnit}
+                  passedWeightUnit={this.props.passedWeightUnit} />
                 : null}
               {activeStep === 1 ?
                 <ActivityInfo
@@ -261,13 +264,6 @@ class CalcInput extends Component {
             </div>
           )}
         </div>
-        <h3>rce: {this.state.rce}</h3>
-        <h3>age: {this.state.age}</h3>
-        <h3>weight: {this.state.weight}</h3>
-        <h3>height: {this.state.height}</h3>
-        <h3>gender: {this.state.gender}</h3>
-        <h3>activity: {this.state.activity}</h3>
-        <h3>goal: {this.state.goal}</h3>
       </div>
     );
   }

@@ -5,7 +5,9 @@ import { Doughnut, HorizontalBar } from 'react-chartjs-2';
 class MacroOutput extends Component {
   render() {
     var macroData = {
-      labels: ["Protein", "Fat", "Carbohydrate"],
+      labels: ["Protein: "+this.props.passedProtein+"g",
+        "Fat: "+this.props.passedFat+"g",
+        "Carbohydrate: "+this.props.passedCarbs+"g"],
       datasets: [
       {
         label: 'Macronutrients Allowance',
@@ -19,20 +21,19 @@ class MacroOutput extends Component {
     };
 
     var calorieData = {
-        labels: ["cals"],
-
+        //labels: ["Resting", "Total", "Goal"],
         datasets: [{
-          label: 'Resting Calorie Expenditure',
+          label: 'Resting Calorie Expenditure: '+this.props.passedRCE,
           data: [this.props.passedRCE],
           backgroundColor: '#36A2EB',
         },
         {
-          label: 'Total Calorie Expenditure',
+          label: 'Total Calorie Expenditure: '+this.props.passedTotalCals,
           data: [this.props.passedTotalCals],
           backgroundColor: '#FFCE56',
         },
         {
-          label: 'Goal Calorie Intake',
+          label: 'Goal Calorie Intake: '+this.props.passedGoalCals,
           data: [this.props.passedGoalCals],
           backgroundColor: '#FF6384',
         }]
@@ -44,6 +45,10 @@ class MacroOutput extends Component {
         xAxes: [{
           ticks: {
             beginAtZero: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'cals'
           }
         }],
       }

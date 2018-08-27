@@ -3,6 +3,10 @@
   padding: 6vw;
 }
 
+.expansion {
+  margin-top: 18px;
+}
+
 .macro-output {
   height: 40vh;
 }

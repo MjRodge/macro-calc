@@ -17,6 +17,7 @@ function getSteps() {
 const style = {
   formButtons: {
     float: 'right',
+    margin: '2px',
   },
 }
 
@@ -197,19 +198,21 @@ class CalcInput extends Component {
                 passedProtein={this.state.totalProtein}
                 passedFat={this.state.totalFat}
                 passedCarbs={this.state.totalCarbs}/>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.handleReset}
-                style={style.formButtons}>
-                  Reset
-              </Button>
-              <Button
-                disabled={activeStep === 0}
-                onClick={this.handleBack}
-                style={style.formButtons}>
-                Back
-              </Button>
+              <div className="form-input-buttons">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleReset}
+                  style={style.formButtons}>
+                    Reset
+                </Button>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={this.handleBack}
+                  style={style.formButtons}>
+                    Back
+                </Button>
+              </div>
             </div>
           ) : (
             <div>

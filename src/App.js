@@ -46,8 +46,6 @@ class App extends Component {
           <CalcInput
             passedHeightUnit={this.state.heightUnit}
             passedWeightUnit={this.state.weightUnit} />
-          <h1>{this.state.heightUnit}</h1>
-          <h1>{this.state.weightUnit}</h1>
         </div>
       </MuiThemeProvider>
     );

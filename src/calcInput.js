@@ -3,7 +3,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import BodyInfo from './bodyInfo';
 import ActivityInfo from './activityInfo';
 import Goal from './goal';
@@ -66,6 +65,17 @@ class CalcInput extends Component {
   };
 
 //Calculate macro information when finish button is pressed
+  unitConversion = () => {
+    if (this.props.passedWeightUnit === "lb") {
+      let kiloConversion = (Math.floor(this.state.weight/0.453592));
+      this.setState({ weight: kiloConversion }, () => {
+        //ensure that converted weight state set before calculating further
+        this.calcRestingCals();
+      });
+      this.props.passedWeight(kiloConversion);
+      console.log("pounds to kg:"+ kiloConversion);
+    }
+  }
   calcRestingCals = () => {
     //ADD CHECK/CONVERSION FOR MEASUREMENT UNITS [THIS.PROPS.PASSEDWEIGHTUNIT]
     if (this.state.gender === "male") {
@@ -172,7 +182,16 @@ class CalcInput extends Component {
     });
     //DO MACRO FUNCTION HERE
     //calcRestingCals always only function called - first in chain
-    this.calcRestingCals();
+    if (this.props.passedWeightUnit === "lb") {
+      let kiloConversion = (this.state.weight*0.453592);
+      this.setState({ weight: kiloConversion }, () => {
+        //ensure that converted weight state set before calculating further
+        this.calcRestingCals();
+      });
+      console.log("pounds to kg:"+ kiloConversion);
+    } else {
+      this.calcRestingCals();
+    }
   }
 
   render() {

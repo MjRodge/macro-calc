@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import MaskedInput from 'react-text-mask';
 
 const style = {
   textField: {
     width: '100%',
   },
 }
+function TextMaskCustom(props) {
+  const { inputRef, ...other } = props;
+  //function to be used to format feet/inches user input
+  return (
+    <MaskedInput
+      {...other}
+      ref={inputRef}
+      mask={[ /[3-8]/, '\'', /[0-9]/, /[0-1]/]}
+      placeholderChar={'\u2000'}
+      showMask={false}
+    />
+  );
+}
+TextMaskCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+};
 
 class BodyInfo extends Component {
   constructor(props) {
@@ -62,18 +80,33 @@ class BodyInfo extends Component {
           type="number"
           margin="normal"
         />
-        <TextField
-          style={style.textField}
-          id="height"
-          label="Height"
-          value={this.state.height}
-          onChange={this.handleHeight("height")}
-          type="number"
-          margin="normal"
-          InputProps={{
-            endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
-          }}
-        />
+        {this.props.passedHeightUnit === "cm" ? (
+          <TextField
+            style={style.textField}
+            id="height"
+            label="Height"
+            value={this.state.height}
+            onChange={this.handleHeight("height")}
+            type="number"
+            margin="normal"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
+            }}
+          />
+        ) : (
+          <TextField
+            style={style.textField}
+            label="Height"
+            value={this.state.height}
+            onChange={this.handleHeight("height")}
+            id="height"
+            margin="normal"
+            InputProps={{
+              inputComponent: TextMaskCustom,
+              endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
+            }}
+          />
+        )}
         <TextField
           style={style.textField}
           id="weight"
@@ -101,6 +134,7 @@ class BodyInfo extends Component {
             Female
           </MenuItem>
         </TextField>
+        <h1>{this.state.height}</h1>
       </Paper>
     );
   }

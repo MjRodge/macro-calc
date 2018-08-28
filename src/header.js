@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -12,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -112,7 +110,7 @@ class Header extends Component {
             </SwipeableDrawer>
           </IconButton>
           <Typography variant='display1' align='center' color="textPrimary">
-            Macro Calculator {this.state.heightUnit}
+            Macro Calculator
           </Typography>
         </Toolbar>
       </AppBar>

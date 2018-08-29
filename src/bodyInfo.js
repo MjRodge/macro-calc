@@ -134,7 +134,6 @@ class BodyInfo extends Component {
             Female
           </MenuItem>
         </TextField>
-        <h1>{this.state.height}</h1>
       </Paper>
     );
   }

@@ -17,6 +17,7 @@ const style = {
   formButtons: {
     float: 'right',
     margin: '2px',
+    marginBottom: '8px',
   },
 }
 
@@ -66,14 +67,33 @@ class CalcInput extends Component {
 
 //Calculate macro information when finish button is pressed
   unitConversion = () => {
-    if (this.props.passedWeightUnit === "lb") {
-      let kiloConversion = (Math.floor(this.state.weight/0.453592));
+    if (this.props.passedWeightUnit === "lb" && this.props.passedHeightUnit === "ft/in") {
+      let kiloConversion = (this.state.weight*0.453592);
+      let heightSplitArray = this.state.height.split("'");
+      let cmConversion = (((Number(heightSplitArray[0])*12)+Number(heightSplitArray[1]))*2.54);
+      this.setState({ weight: kiloConversion, height: cmConversion }, () => {
+        //ensure that converted weight and height state set before calculating further
+        this.calcRestingCals();
+      });
+      console.log("pounds to kg:"+ kiloConversion);
+      console.log("ft/in to cm:"+ cmConversion);
+      console.log("heightsplit[0]:"+ heightSplitArray[0]);
+      console.log("heightsplit[1]:"+ heightSplitArray[1]);
+    } else if (this.props.passedWeightUnit === "lb") {
+      let kiloConversion = (this.state.weight*0.453592);
       this.setState({ weight: kiloConversion }, () => {
         //ensure that converted weight state set before calculating further
         this.calcRestingCals();
       });
-      this.props.passedWeight(kiloConversion);
-      console.log("pounds to kg:"+ kiloConversion);
+    } else if (this.props.passedHeightUnit === "ft/in") {
+      let heightSplitArray = this.state.height.split("'");
+      let cmConversion = (((Number(heightSplitArray[0])*12)+Number(heightSplitArray[1]))*2.54);
+      this.setState({ height: cmConversion }, () => {
+        //ensure that converted height state set before calculating further
+        this.calcRestingCals();
+      });
+    } else {
+      this.calcRestingCals();
     }
   }
   calcRestingCals = () => {
@@ -181,17 +201,8 @@ class CalcInput extends Component {
       activeStep: activeStep + 1,
     });
     //DO MACRO FUNCTION HERE
-    //calcRestingCals always only function called - first in chain
-    if (this.props.passedWeightUnit === "lb") {
-      let kiloConversion = (this.state.weight*0.453592);
-      this.setState({ weight: kiloConversion }, () => {
-        //ensure that converted weight state set before calculating further
-        this.calcRestingCals();
-      });
-      console.log("pounds to kg:"+ kiloConversion);
-    } else {
-      this.calcRestingCals();
-    }
+    //unitConversion always only function called - first in chain
+    this.unitConversion();
   }
 
   render() {

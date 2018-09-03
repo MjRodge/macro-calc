@@ -12,7 +12,7 @@ class Goal extends Component {
     super(props);
     this.state = {
       expanded: null,
-      goal: '',
+      goal: 'lose',
     };
   }
 
@@ -43,12 +43,11 @@ class Goal extends Component {
                 value="lose"
                 name="goal"
               />
-              <Typography>Lose</Typography>
+              <Typography className="selection-title">Lose</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
+                Eat at a calorie deficit to encourage fat burning.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -60,12 +59,11 @@ class Goal extends Component {
                 value="maintain"
                 name="goal"
               />
-              <Typography>Maintain</Typography>
+              <Typography className="selection-title">Maintain</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
+                Eat roughly the same amount of calories as are being burned, to maintain current weight.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -77,12 +75,11 @@ class Goal extends Component {
                 value="gain"
                 name="goal"
               />
-              <Typography>Gain</Typography>
+              <Typography className="selection-title">Gain</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
+                Eat at a calorie surplus aiming to gain weight.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>

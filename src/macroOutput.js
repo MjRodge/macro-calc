@@ -62,14 +62,6 @@ class MacroOutput extends Component {
         <Paper elevation={1} className="input-paper macro-output">
           <HorizontalBar data={calorieData} options={calorieOptions}/>
         </Paper>
-        <Paper elevation={1} className="input-paper">
-          <h2>RESTING CALS: {this.props.passedRCE}</h2>
-          <h2>TOTAL CALS: {this.props.passedTotalCals}</h2>
-          <h2>GOAL CALS: {this.props.passedGoalCals}</h2>
-          <h2>Total protein: {this.props.passedProtein}g</h2>
-          <h2>Total fat: {this.props.passedFat}g</h2>
-          <h2>Total carbs: {this.props.passedCarbs}g</h2>
-        </Paper>
       </div>
     );
   }

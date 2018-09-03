@@ -12,7 +12,7 @@ class ActivityInfo extends Component {
     super(props);
     this.state = {
       expanded: null,
-      activityLevel: '',
+      activityLevel: 'sedentary',
     };
   }
 
@@ -43,12 +43,11 @@ class ActivityInfo extends Component {
                 value="sedentary"
                 name="activity-level"
               />
-              <Typography>Sedentary</Typography>
+              <Typography className="selection-title">Sedentary</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
+                Office job combined with very little exercise.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -60,12 +59,11 @@ class ActivityInfo extends Component {
                 value="light"
                 name="activity-level"
               />
-              <Typography>Light</Typography>
+              <Typography className="selection-title">Light</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
+                Office job combined with 0-3 low/medium intensity workouts per week.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -77,8 +75,15 @@ class ActivityInfo extends Component {
                 value="moderate"
                 name="activity-level"
               />
-              <Typography>Moderate</Typography>
+              <Typography className="selection-title">Moderate</Typography>
             </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Active job combined with 0-3 low/medium intensity workouts per week.
+                <br />
+                Office job with 3-5 medium/high intensity workouts per week.
+              </Typography>
+            </ExpansionPanelDetails>
           </ExpansionPanel>
           <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handlePanel('panel4')}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -88,8 +93,13 @@ class ActivityInfo extends Component {
                 value="heavy"
                 name="activity-level"
               />
-              <Typography>Heavy</Typography>
+              <Typography className="selection-title">Heavy</Typography>
             </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Active job combined with 3-5 medium/high intensity workouts per week.
+              </Typography>
+            </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>
       </Paper>

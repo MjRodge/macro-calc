@@ -228,7 +228,16 @@ class CalcInput extends Component {
                 passedGoalCals={this.state.goalCals}
                 passedProtein={this.state.totalProtein}
                 passedFat={this.state.totalFat}
-                passedCarbs={this.state.totalCarbs}/>
+                passedCarbs={this.state.totalCarbs}
+                passedAge={this.state.age}
+                passedHeight={this.state.height}
+                passedWeight={this.state.weight}
+                passedGender={this.state.gender}
+                passedActivity={this.state.activity}
+                passedGoal={this.state.goal}
+                passedWeightUnit={this.props.passedWeightUnit}
+                passedHeightUnit={this.props.passedHeightUnit}
+              />
               <div className="form-input-buttons">
                 <Button
                   variant="contained"

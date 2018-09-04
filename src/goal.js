@@ -16,6 +16,11 @@ class Goal extends Component {
     };
   }
 
+  componentDidMount() {
+    //ensure default goal value sent to parent component
+    this.props.passedGoal(this.state.goal);
+  }
+
   handlePanel = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -47,7 +52,7 @@ class Goal extends Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Eat at a calorie deficit to encourage fat burning.
+                Eat at a calorie deficit, to encourage fat burning.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -79,7 +84,7 @@ class Goal extends Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Eat at a calorie surplus aiming to gain weight.
+                Eat at a calorie surplus, aiming to gain mass.
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>

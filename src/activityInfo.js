@@ -16,6 +16,11 @@ class ActivityInfo extends Component {
     };
   }
 
+  componentDidMount() {
+    //ensure default activityLevel value sent to parent component
+    this.props.passedActivity(this.state.activityLevel);
+  }
+
   handlePanel = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,

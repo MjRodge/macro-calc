@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { Doughnut, HorizontalBar } from 'react-chartjs-2';
 
 class MacroOutput extends Component {
@@ -56,6 +57,17 @@ class MacroOutput extends Component {
 
     return (
       <div>
+        <Paper elevation={1} className="input-paper">
+          <Typography variant='display1' align='center'>
+            Your Results
+          </Typography>
+          <Typography>Age: {this.props.passedAge}</Typography>
+          <Typography>Height: {this.props.passedHeight}</Typography>
+          <Typography>Weight: {this.props.passedWeight}</Typography>
+          <Typography>Gender: {this.props.passedGender}</Typography>
+          <Typography>Activity Level: {this.props.passedActivity}</Typography>
+          <Typography>Goal: {this.props.passedGoal}</Typography>
+        </Paper>
         <Paper elevation={1} className="input-paper macro-output">
           <Doughnut data={macroData} options={{maintainAspectRatio: false, responsive: true}}/>
         </Paper>

@@ -3,6 +3,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Doughnut, HorizontalBar } from 'react-chartjs-2';
 
+const style = {
+  resultsTitle: {
+    marginLeft: "9vw",
+  },
+}
+
 class MacroOutput extends Component {
   capitalise = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -61,7 +67,7 @@ class MacroOutput extends Component {
 
     return (
       <div>
-        <Typography variant='display1' gutterBottom className="results-title">
+        <Typography variant='display1' gutterBottom style={style.resultsTitle}>
           Your Results
         </Typography>
         <Paper elevation={1} className="input-paper macro-output">

@@ -8,7 +8,13 @@
 }
 
 .macro-output {
+  height: 49vh;
+}
+.macro-chart {
   height: 40vh;
+}
+.results-title {
+  margin-left: 6vw; 
 }
 
 .form-input-buttons {

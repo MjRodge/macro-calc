@@ -4,6 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import { Doughnut, HorizontalBar } from 'react-chartjs-2';
 
 class MacroOutput extends Component {
+  capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   render() {
     var macroData = {
       labels: ["Protein: "+this.props.passedProtein+"g",
@@ -57,22 +61,47 @@ class MacroOutput extends Component {
 
     return (
       <div>
-        <Paper elevation={1} className="input-paper">
-          <Typography variant='display1' align='center'>
-            Your Results
+        <Typography variant='display1' gutterBottom className="results-title">
+          Your Results
+        </Typography>
+        <Paper elevation={1} className="input-paper macro-output">
+          <Typography variant='display1' align='center' gutterBottom>
+            Macro Split
           </Typography>
-          <Typography>Age: {this.props.passedAge}</Typography>
-          <Typography>Height: {this.props.passedHeight}</Typography>
-          <Typography>Weight: {this.props.passedWeight}</Typography>
-          <Typography>Gender: {this.props.passedGender}</Typography>
-          <Typography>Activity Level: {this.props.passedActivity}</Typography>
-          <Typography>Goal: {this.props.passedGoal}</Typography>
+          <div className="macro-chart">
+            <Doughnut data={macroData} options={{maintainAspectRatio: false, responsive: true}}/>
+          </div>
         </Paper>
         <Paper elevation={1} className="input-paper macro-output">
-          <Doughnut data={macroData} options={{maintainAspectRatio: false, responsive: true}}/>
+          <Typography variant='display1' align='center' gutterBottom>
+            Calorie Goal
+          </Typography>
+          <div className="macro-chart">
+            <HorizontalBar data={calorieData} options={calorieOptions}/>
+          </div>
         </Paper>
-        <Paper elevation={1} className="input-paper macro-output">
-          <HorizontalBar data={calorieData} options={calorieOptions}/>
+        <Paper elevation={1} className="input-paper">
+          <Typography variant='display1' align='center' gutterBottom>
+            User Information
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Age: {this.props.passedAge}
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Height: {this.props.passedHeight}{this.props.passedHeightUnit}
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Weight: {this.props.passedWeight}{this.props.passedWeightUnit}
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Gender: {this.capitalise(this.props.passedGender)}
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Activity Level: {this.capitalise(this.props.passedActivity)}
+          </Typography>
+          <Typography variant="subheading" gutterBottom>
+            Goal: {this.capitalise(this.props.passedGoal)}
+          </Typography>
         </Paper>
       </div>
     );

@@ -29,6 +29,10 @@ class CalcInput extends Component {
       age: '',
       height: '',
       weight: '',
+      //original height and weight state kept unconverted to ouput with results
+      //conversions used for calulations
+      convertedHeight: '',
+      convertedWeight: '',
       gender: '',
       activity: '',
       goal: '',
@@ -71,42 +75,40 @@ class CalcInput extends Component {
       let kiloConversion = (this.state.weight*0.453592);
       let heightSplitArray = this.state.height.split("'");
       let cmConversion = (((Number(heightSplitArray[0])*12)+Number(heightSplitArray[1]))*2.54);
-      this.setState({ weight: kiloConversion, height: cmConversion }, () => {
+      this.setState({ convertedWeight: kiloConversion, convertedHeight: cmConversion }, () => {
         //ensure that converted weight and height state set before calculating further
         this.calcRestingCals();
       });
-      console.log("pounds to kg:"+ kiloConversion);
-      console.log("ft/in to cm:"+ cmConversion);
-      console.log("heightsplit[0]:"+ heightSplitArray[0]);
-      console.log("heightsplit[1]:"+ heightSplitArray[1]);
     } else if (this.props.passedWeightUnit === "lb") {
       let kiloConversion = (this.state.weight*0.453592);
-      this.setState({ weight: kiloConversion }, () => {
+      this.setState({ convertedWeight: kiloConversion }, () => {
         //ensure that converted weight state set before calculating further
         this.calcRestingCals();
       });
     } else if (this.props.passedHeightUnit === "ft/in") {
       let heightSplitArray = this.state.height.split("'");
       let cmConversion = (((Number(heightSplitArray[0])*12)+Number(heightSplitArray[1]))*2.54);
-      this.setState({ height: cmConversion }, () => {
+      this.setState({ convertedHeight: cmConversion }, () => {
         //ensure that converted height state set before calculating further
         this.calcRestingCals();
       });
     } else {
-      this.calcRestingCals();
+      this.setState({ convertedWeight: this.state.weight, convertedHeight: this.state.height }, () => {
+        this.calcRestingCals();
+      });
     }
   }
   calcRestingCals = () => {
     //ADD CHECK/CONVERSION FOR MEASUREMENT UNITS [THIS.PROPS.PASSEDWEIGHTUNIT]
     if (this.state.gender === "male") {
-      let rce = (Math.floor((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)+5));
+      let rce = (Math.floor((10*this.state.convertedWeight)+(6.25*this.state.convertedHeight)-(5*this.state.age)+5));
       console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
         this.calcTotalCals();
       });
     } else {
-      let rce = (Math.floor((10*this.state.weight)+(6.25*this.state.height)-(5*this.state.age)-161));
+      let rce = (Math.floor((10*this.state.convertedWeight)+(6.25*this.state.convertedHeight)-(5*this.state.age)-161));
       console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
@@ -169,7 +171,7 @@ class CalcInput extends Component {
     }
   }
   calcMacroSplit = () => {
-    let totalProtein = (Math.floor((this.state.weight*2.2)*.825));
+    let totalProtein = (Math.floor((this.state.convertedWeight*2.2)*.825));
     this.setState({ totalProtein: totalProtein });
     let totalFat = (Math.floor((this.state.goalCals*.18)/9));
     this.setState({ totalFat: totalFat });

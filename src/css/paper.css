@@ -1,0 +1,27 @@
+.input-paper {
+  margin: 6vw;
+  padding: 6vw;
+}
+
+.expansion {
+  margin-top: 18px;
+}
+
+.macro-output {
+  height: 49vh;
+}
+.macro-chart {
+  height: 40vh;
+}
+.results-title {
+  margin-left: 6vw; 
+}
+
+.form-input-buttons {
+  width: 85%;
+  margin: 6vw;
+}
+
+.selection-title {
+  padding-top: 3vw;
+}

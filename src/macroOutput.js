@@ -70,45 +70,47 @@ class MacroOutput extends Component {
         <Typography variant='display1' gutterBottom style={style.resultsTitle}>
           Your Results
         </Typography>
-        <Paper elevation={1} className="input-paper macro-output">
-          <Typography variant='display1' align='center' gutterBottom>
-            Macro Split
-          </Typography>
-          <div className="macro-chart">
-            <Doughnut data={macroData} options={{maintainAspectRatio: false, responsive: true}}/>
-          </div>
-        </Paper>
-        <Paper elevation={1} className="input-paper macro-output">
-          <Typography variant='display1' align='center' gutterBottom>
-            Calorie Goal
-          </Typography>
-          <div className="macro-chart">
-            <HorizontalBar data={calorieData} options={calorieOptions}/>
-          </div>
-        </Paper>
-        <Paper elevation={1} className="input-paper">
-          <Typography variant='display1' align='center' gutterBottom>
-            User Information
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Age: {this.props.passedAge}
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Height: {this.props.passedHeight}{this.props.passedHeightUnit}
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Weight: {this.props.passedWeight}{this.props.passedWeightUnit}
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Gender: {this.capitalise(this.props.passedGender)}
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Activity Level: {this.capitalise(this.props.passedActivity)}
-          </Typography>
-          <Typography variant="subheading" gutterBottom>
-            Goal: {this.capitalise(this.props.passedGoal)}
-          </Typography>
-        </Paper>
+        <div className="macro-output-container">
+          <Paper elevation={1} className="output-paper macro-output">
+            <Typography variant='display1' align='center' gutterBottom>
+              Macro Split
+            </Typography>
+            <div className="macro-chart">
+              <Doughnut data={macroData} options={{maintainAspectRatio: false, responsive: true}}/>
+            </div>
+          </Paper>
+          <Paper elevation={1} className="output-paper macro-output">
+            <Typography variant='display1' align='center' gutterBottom>
+              Calorie Goal
+            </Typography>
+            <div className="macro-chart">
+              <HorizontalBar data={calorieData} options={calorieOptions}/>
+            </div>
+          </Paper>
+          <Paper elevation={1} className="output-paper macro-output">
+            <Typography variant='display1' align='center' gutterBottom>
+              User Information
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Age: {this.props.passedAge}
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Height: {this.props.passedHeight}{this.props.passedHeightUnit}
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Weight: {this.props.passedWeight}{this.props.passedWeightUnit}
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Gender: {this.capitalise(this.props.passedGender)}
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Activity Level: {this.capitalise(this.props.passedActivity)}
+            </Typography>
+            <Typography variant="subheading" gutterBottom>
+              Goal: {this.capitalise(this.props.passedGoal)}
+            </Typography>
+          </Paper>
+        </div>
       </div>
     );
   }

@@ -39,8 +39,7 @@ class BodyInfo extends Component {
       weight: '',
       gender: '',
       ageErrorText: '',
-      heightCmErrorText: '',
-      heightFtErrorText: '',
+      heightErrorText: '',
       weightErrorText: '',
       genderErrorText: '',
     };
@@ -86,26 +85,13 @@ class BodyInfo extends Component {
       this.props.passedAgeValidation('true');
     }
   }
-  validateHeightCm = event => {
+  validateHeight = event => {
     if (event.target.value === "") {
       //validation to make required
-      this.setState({ heightCmErrorText: 'Height is required' });
-    } else if (event.target.value < 75 || event.target.value > 285) {
-      this.setState({ heightCmErrorText: 'Height must be between 75 and 285' });
-    } else if (Number.isInteger(parseInt(event.target.value)) === false) {
-      this.setState({ heightCmErrorText: 'No decimals allowed' });
+      this.setState({ heightErrorText: 'Height is required' });
     } else {
-      this.setState({ heightCmErrorText: '' });
-      this.props.passedHeightCmValidation('true');
-    }
-  }
-  validateHeightFt = event => {
-    if (event.target.value === "") {
-      //validation to make required
-      this.setState({ heightFtErrorText: 'Height is required' });
-    } else {
-      this.setState({ heightFtErrorText: '' });
-      this.props.passedHeightFtValidation('true');
+      this.setState({ heightErrorText: '' });
+      this.props.passedHeightValidation('true');
     }
   }
   validateWeight = event => {
@@ -155,14 +141,14 @@ class BodyInfo extends Component {
             label="Height"
             value={this.state.height}
             onChange={this.handleHeight("height")}
-            onBlur={this.validateHeightCm}
+            onBlur={this.validateHeight}
             type="number"
             margin="normal"
             InputProps={{
               endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
             }}
-            error={this.state.heightCmErrorText.length === 0 ? false : true }
-            helperText={this.state.heightCmErrorText}
+            error={this.state.heightErrorText.length === 0 ? false : true }
+            helperText={this.state.heightErrorText}
           />
         ) : (
           <TextField
@@ -170,15 +156,15 @@ class BodyInfo extends Component {
             label="Height"
             value={this.state.height}
             onChange={this.handleHeight("height")}
-            onBlur={this.validateHeightFt}
+            onBlur={this.validateHeight}
             id="height"
             margin="normal"
             InputProps={{
               inputComponent: TextMaskCustom,
               endAdornment: <InputAdornment position="end">{this.props.passedHeightUnit}</InputAdornment>,
             }}
-            error={this.state.heightFtErrorText.length === 0 ? false : true }
-            helperText={this.state.heightFtErrorText}
+            error={this.state.heightErrorText.length === 0 ? false : true }
+            helperText={this.state.heightErrorText}
           />
         )}
         <TextField

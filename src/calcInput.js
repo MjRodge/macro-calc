@@ -42,6 +42,10 @@ class CalcInput extends Component {
       totalProtein: '',
       totalFat: '',
       totalCarbs: '',
+      ageValidation: '',
+      heightValidation: '',
+      weightValidation: '',
+      genderValidation: '',
     };
   }
 
@@ -57,6 +61,18 @@ class CalcInput extends Component {
   };
   handlePassedGender = passedGender => {
     this.setState({ gender: passedGender })
+  };
+  handlePassedAgeValidation = passedAgeValidation => {
+    this.setState({ ageValidation: passedAgeValidation })
+  };
+  handlePassedHeightValidation = passedHeightValidation => {
+    this.setState({ heightValidation: passedHeightValidation })
+  };
+  handlePassedWeightValidation = passedWeightValidation => {
+    this.setState({ weightValidation: passedWeightValidation })
+  };
+  handlePassedGenderValidation = passedGenderValidation => {
+    this.setState({ genderValidation: passedGenderValidation })
   };
 
 //handle props passed from activityInfo.js Component
@@ -102,14 +118,12 @@ class CalcInput extends Component {
     //ADD CHECK/CONVERSION FOR MEASUREMENT UNITS [THIS.PROPS.PASSEDWEIGHTUNIT]
     if (this.state.gender === "male") {
       let rce = (Math.floor((10*this.state.convertedWeight)+(6.25*this.state.convertedHeight)-(5*this.state.age)+5));
-      console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
         this.calcTotalCals();
       });
     } else {
       let rce = (Math.floor((10*this.state.convertedWeight)+(6.25*this.state.convertedHeight)-(5*this.state.age)-161));
-      console.log(rce);
       this.setState({ rce: rce }, () => {
         //ensure that rce state set before calculating further
         this.calcTotalCals();
@@ -123,28 +137,24 @@ class CalcInput extends Component {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
-      console.log(totalCals);
     } else if (this.state.activity === "light") {
       let totalCals = (Math.floor(this.state.rce*1.375));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
-      console.log(totalCals);
     } else if (this.state.activity === "moderate") {
       let totalCals = (Math.floor(this.state.rce*1.55));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
-      console.log(totalCals);
     } else {
       let totalCals = (Math.floor(this.state.rce*1.725));
       this.setState({ totalCals: totalCals }, () => {
         //ensure that totalCals state set before calculating further
         this.calcGoalCals();
       });
-      console.log(totalCals);
     }
   }
   calcGoalCals = () => {
@@ -154,14 +164,12 @@ class CalcInput extends Component {
         //ensure that goalCals state set before calculating further
         this.calcMacroSplit();
       });
-      console.log(goalCals);
     } else if (this.state.goal === "gain") {
       let goalCals = (Math.floor(this.state.totalCals+(this.state.totalCals*.2)));
       this.setState({ goalCals: goalCals }, () => {
         //ensure that goalCals state set before calculating further
         this.calcMacroSplit();
       });
-      console.log(goalCals);
     } else {
       let goalCals = this.state.totalCals;
       this.setState({ goalCals: goalCals }, () => {
@@ -208,8 +216,18 @@ class CalcInput extends Component {
   }
 
   render() {
+    //for material-ui stepper
     const steps = getSteps();
     const { activeStep } = this.state;
+
+    //to disable next button when conditions are not met
+    const { ageValidation, heightValidation, weightValidation, genderValidation } = this.state;
+    const isEnabled =
+      ageValidation.length > 0 &&
+      heightValidation.length > 0 &&
+      weightValidation.length > 0 &&
+      genderValidation.length > 0;
+
     return (
       <div>
         <Stepper activeStep={activeStep} alternativeLabel>
@@ -264,6 +282,10 @@ class CalcInput extends Component {
                   passedHeight={this.handlePassedHeight}
                   passedWeight={this.handlePassedWeight}
                   passedGender={this.handlePassedGender}
+                  passedAgeValidation={this.handlePassedAgeValidation}
+                  passedHeightValidation={this.handlePassedHeightValidation}
+                  passedWeightValidation={this.handlePassedWeightValidation}
+                  passedGenderValidation={this.handlePassedGenderValidation}
                   passedHeightUnit={this.props.passedHeightUnit}
                   passedWeightUnit={this.props.passedWeightUnit} />
                 : null}
@@ -290,9 +312,15 @@ class CalcInput extends Component {
                 </div>
                 :
                 <div className="form-input-buttons">
-                  <Button variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
-                    Next
-                  </Button>
+                  {activeStep === 0 ?
+                    <Button disabled={!isEnabled} variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
+                      Next
+                    </Button>
+                  :
+                    <Button variant="contained" color="secondary" onClick={this.handleNext} style={style.formButtons}>
+                      Next
+                    </Button>
+                  }
                   <Button
                     disabled={activeStep === 0}
                     onClick={this.handleBack}

@@ -42,6 +42,11 @@ class CalcInput extends Component {
       totalProtein: '',
       totalFat: '',
       totalCarbs: '',
+      ageValidation: 'false',
+      heightCmValidation: 'false',
+      heightFtValidation: 'false',
+      weightValidation: 'false',
+      genderValidation: 'false',
     };
   }
 
@@ -57,6 +62,21 @@ class CalcInput extends Component {
   };
   handlePassedGender = passedGender => {
     this.setState({ gender: passedGender })
+  };
+  handlePassedAgeValidation = passedAgeValidation => {
+    this.setState({ ageValidation: passedAgeValidation })
+  };
+  handlePassedHeightCmValidation = passedHeightCmValidation => {
+    this.setState({ heightCmValidation: passedHeightCmValidation })
+  };
+  handlePassedHeightFtValidation = passedHeightFtValidation => {
+    this.setState({ heightFtValidation: passedHeightFtValidation })
+  };
+  handlePassedWeightValidation = passedWeightValidation => {
+    this.setState({ weightValidation: passedWeightValidation })
+  };
+  handlePassedGenderValidation = passedGenderValidation => {
+    this.setState({ genderValidation: passedGenderValidation })
   };
 
 //handle props passed from activityInfo.js Component
@@ -264,6 +284,11 @@ class CalcInput extends Component {
                   passedHeight={this.handlePassedHeight}
                   passedWeight={this.handlePassedWeight}
                   passedGender={this.handlePassedGender}
+                  passedAgeValidation={this.handlePassedAgeValidation}
+                  passedHeightCmValidation={this.handlePassedHeightCmValidation}
+                  passedHeightFtValidation={this.handlePassedHeightFtValidation}
+                  passedWeightValidation={this.handlePassedWeightValidation}
+                  passedGenderValidation={this.handlePassedGenderValidation}
                   passedHeightUnit={this.props.passedHeightUnit}
                   passedWeightUnit={this.props.passedWeightUnit} />
                 : null}

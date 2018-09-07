@@ -203,6 +203,25 @@ class CalcInput extends Component {
   handleReset = () => {
     this.setState({
       activeStep: 0,
+      //set all state to empty
+      age: '',
+      height: '',
+      weight: '',
+      convertedHeight: '',
+      convertedWeight: '',
+      gender: '',
+      activity: '',
+      goal: '',
+      rce: '',
+      totalCals: '',
+      goalCals: '',
+      totalProtein: '',
+      totalFat: '',
+      totalCarbs: '',
+      ageValidation: '',
+      heightValidation: '',
+      weightValidation: '',
+      genderValidation: '',
     });
   };
   handleFinish = () => {

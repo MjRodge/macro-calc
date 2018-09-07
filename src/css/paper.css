@@ -1,4 +1,4 @@
-.input-paper {
+.input-paper, .output-paper {
   margin: 6vw;
   padding: 6vw;
 }
@@ -14,14 +14,40 @@
   height: 40vh;
 }
 .results-title {
-  margin-left: 6vw; 
+  margin-left: 6vw;
 }
 
 .form-input-buttons {
   width: 85%;
   margin: 6vw;
 }
-
 .selection-title {
   padding-top: 3vw;
+}
+
+@media only screen and (min-width: 500px) {
+  .input-paper{
+    max-width: 58%;
+    margin:auto;
+    margin-top: 25px;
+  }
+  .output-paper {
+    margin: 15px;
+    padding: 15px;
+  }
+  .selection-title {
+    padding-top: 13px;
+  }
+  .macro-output {
+    width: 275px;
+    height: 275px;
+  }
+  .macro-chart {
+    height: 225px;
+  }
+  .macro-output-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

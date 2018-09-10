@@ -67,6 +67,9 @@ class BodyInfo extends Component {
   handleGender = gender => event => {
     this.setState({
       [gender]: event.target.value,
+    }, () => {
+      //Call validateGender on change to avoid having to click off gender before Next button isEnabled
+      this.validateGender();
     });
     this.props.passedGender(event.target.value);
   };
@@ -105,8 +108,8 @@ class BodyInfo extends Component {
       this.props.passedWeightValidation('true');
     }
   }
-  validateGender = event => {
-    if (event.target.value === "") {
+  validateGender = () => {
+    if (this.state.gender === "") {
       //validation to make required
       this.setState({ genderErrorText: 'Gender is required' });
     } else {
@@ -188,7 +191,7 @@ class BodyInfo extends Component {
           label="Gender"
           value={this.state.gender}
           onChange={this.handleGender("gender")}
-          onBlur={this.validateGender}
+          //onBlur={this.validateGender}
           margin="normal"
           error={this.state.genderErrorText.length === 0 ? false : true }
           helperText={this.state.genderErrorText}

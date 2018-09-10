@@ -97,18 +97,21 @@ class CalcInput extends Component {
       });
     } else if (this.props.passedWeightUnit === "lb") {
       let kiloConversion = (this.state.weight*0.453592);
-      this.setState({ convertedWeight: kiloConversion }, () => {
+      //convert lbs into kilos, assign this.state.height to convertedHeight for processing
+      this.setState({ convertedWeight: kiloConversion, convertedHeight: this.state.height }, () => {
         //ensure that converted weight state set before calculating further
         this.calcRestingCals();
       });
     } else if (this.props.passedHeightUnit === "ft/in") {
       let heightSplitArray = this.state.height.split("'");
       let cmConversion = (((Number(heightSplitArray[0])*12)+Number(heightSplitArray[1]))*2.54);
-      this.setState({ convertedHeight: cmConversion }, () => {
+      //convert ft/in into cms, assign this.state.weight to convertedWeight for processing
+      this.setState({ convertedHeight: cmConversion, convertedWeight: this.state.weight }, () => {
         //ensure that converted height state set before calculating further
         this.calcRestingCals();
       });
     } else {
+      //already in units of choice, assign to converted* for processing
       this.setState({ convertedWeight: this.state.weight, convertedHeight: this.state.height }, () => {
         this.calcRestingCals();
       });

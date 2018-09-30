@@ -9,6 +9,8 @@ import Goal from "./goal";
 import MacroOutput from "./macroOutput";
 import "./css/paper.css";
 
+import { MacroContextConsumer } from "./context/MacroContext";
+
 function getSteps() {
   return ["Body Information", "Activity Level", "Goal"];
 }
@@ -50,18 +52,6 @@ class CalcInput extends Component {
   }
 
   //handle props passed from bodyInfo.js component
-  handlePassedAge = passedAge => {
-    this.setState({ age: passedAge });
-  };
-  handlePassedHeight = passedHeight => {
-    this.setState({ height: passedHeight });
-  };
-  handlePassedWeight = passedWeight => {
-    this.setState({ weight: passedWeight });
-  };
-  handlePassedGender = passedGender => {
-    this.setState({ gender: passedGender });
-  };
   handlePassedAgeValidation = passedAgeValidation => {
     this.setState({ ageValidation: passedAgeValidation });
   };
@@ -285,134 +275,148 @@ class CalcInput extends Component {
       weightValidation,
       genderValidation
     } = this.state;
-    const isEnabled =
-      ageValidation.length > 0 &&
-      heightValidation.length > 0 &&
-      weightValidation.length > 0 &&
-      genderValidation.length > 0;
+    const isEnabled = true;
+    //ageValidation.length > 0 &&
+    //heightValidation.length > 0 &&
+    //weightValidation.length > 0 &&
+    //genderValidation.length > 0;
 
     return (
       <div>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map(label => {
-            return (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-        <div>
-          {this.state.activeStep === steps.length ? (
-            <div>
-              <MacroOutput
-                passedRCE={this.state.rce}
-                passedTotalCals={this.state.totalCals}
-                passedGoalCals={this.state.goalCals}
-                passedProtein={this.state.totalProtein}
-                passedFat={this.state.totalFat}
-                passedCarbs={this.state.totalCarbs}
-                passedAge={this.state.age}
-                passedHeight={this.state.height}
-                passedWeight={this.state.weight}
-                passedGender={this.state.gender}
-                passedActivity={this.state.activity}
-                passedGoal={this.state.goal}
-                passedWeightUnit={this.props.passedWeightUnit}
-                passedHeightUnit={this.props.passedHeightUnit}
-              />
-              <div className="form-input-buttons">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.handleReset}
-                  style={style.formButtons}
-                >
-                  Reset
-                </Button>
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={this.handleBack}
-                  style={style.formButtons}
-                >
-                  Back
-                </Button>
+        <MacroContextConsumer>
+          {context => (
+            <React.Fragment>
+              <Stepper activeStep={activeStep} alternativeLabel>
+                {steps.map(label => {
+                  return (
+                    <Step key={label}>
+                      <StepLabel>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+              <div>
+                {this.state.activeStep === steps.length ? (
+                  <div>
+                    <MacroOutput
+                      passedRCE={this.state.rce}
+                      passedTotalCals={this.state.totalCals}
+                      passedGoalCals={this.state.goalCals}
+                      passedProtein={this.state.totalProtein}
+                      passedFat={this.state.totalFat}
+                      passedCarbs={this.state.totalCarbs}
+                      passedAge={this.state.age}
+                      passedHeight={this.state.height}
+                      passedWeight={this.state.weight}
+                      passedGender={this.state.gender}
+                      passedActivity={this.state.activity}
+                      passedGoal={this.state.goal}
+                      passedWeightUnit={this.props.passedWeightUnit}
+                      passedHeightUnit={this.props.passedHeightUnit}
+                    />
+                    <div className="form-input-buttons">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={this.handleReset}
+                        style={style.formButtons}
+                      >
+                        Reset
+                      </Button>
+                      <Button
+                        disabled={activeStep === 0}
+                        onClick={this.handleBack}
+                        style={style.formButtons}
+                      >
+                        Back
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {activeStep === 0 ? (
+                      <BodyInfo
+                        passedAge={this.handlePassedAge}
+                        passedHeight={this.handlePassedHeight}
+                        passedWeight={this.handlePassedWeight}
+                        passedGender={this.handlePassedGender}
+                        passedAgeValidation={this.handlePassedAgeValidation}
+                        passedHeightValidation={
+                          this.handlePassedHeightValidation
+                        }
+                        passedWeightValidation={
+                          this.handlePassedWeightValidation
+                        }
+                        passedGenderValidation={
+                          this.handlePassedGenderValidation
+                        }
+                        passedHeightUnit={this.props.passedHeightUnit}
+                        passedWeightUnit={this.props.passedWeightUnit}
+                      />
+                    ) : null}
+                    {activeStep === 1 ? (
+                      <ActivityInfo
+                        passedActivity={this.handlePassedActivity}
+                      />
+                    ) : null}
+                    {activeStep === 2 ? (
+                      <Goal passedGoal={this.handlePassedGoal} />
+                    ) : null}
+                    {activeStep === steps.length - 1 ? (
+                      <div className="form-input-buttons">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={this.handleFinish}
+                          style={style.formButtons}
+                        >
+                          Finish
+                        </Button>
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={this.handleBack}
+                          style={style.formButtons}
+                        >
+                          Back
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="form-input-buttons">
+                        {activeStep === 0 ? (
+                          <Button
+                            disabled={!isEnabled}
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.handleNext}
+                            style={style.formButtons}
+                          >
+                            Next
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.handleNext}
+                            style={style.formButtons}
+                          >
+                            Next
+                          </Button>
+                        )}
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={this.handleBack}
+                          style={style.formButtons}
+                        >
+                          Back
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
-          ) : (
-            <div>
-              {activeStep === 0 ? (
-                <BodyInfo
-                  passedAge={this.handlePassedAge}
-                  passedHeight={this.handlePassedHeight}
-                  passedWeight={this.handlePassedWeight}
-                  passedGender={this.handlePassedGender}
-                  passedAgeValidation={this.handlePassedAgeValidation}
-                  passedHeightValidation={this.handlePassedHeightValidation}
-                  passedWeightValidation={this.handlePassedWeightValidation}
-                  passedGenderValidation={this.handlePassedGenderValidation}
-                  passedHeightUnit={this.props.passedHeightUnit}
-                  passedWeightUnit={this.props.passedWeightUnit}
-                />
-              ) : null}
-              {activeStep === 1 ? (
-                <ActivityInfo passedActivity={this.handlePassedActivity} />
-              ) : null}
-              {activeStep === 2 ? (
-                <Goal passedGoal={this.handlePassedGoal} />
-              ) : null}
-              {activeStep === steps.length - 1 ? (
-                <div className="form-input-buttons">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={this.handleFinish}
-                    style={style.formButtons}
-                  >
-                    Finish
-                  </Button>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={this.handleBack}
-                    style={style.formButtons}
-                  >
-                    Back
-                  </Button>
-                </div>
-              ) : (
-                <div className="form-input-buttons">
-                  {activeStep === 0 ? (
-                    <Button
-                      disabled={!isEnabled}
-                      variant="contained"
-                      color="secondary"
-                      onClick={this.handleNext}
-                      style={style.formButtons}
-                    >
-                      Next
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={this.handleNext}
-                      style={style.formButtons}
-                    >
-                      Next
-                    </Button>
-                  )}
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={this.handleBack}
-                    style={style.formButtons}
-                  >
-                    Back
-                  </Button>
-                </div>
-              )}
-            </div>
+            </React.Fragment>
           )}
-        </div>
+        </MacroContextConsumer>
       </div>
     );
   }

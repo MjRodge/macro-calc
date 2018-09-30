@@ -14,15 +14,13 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Divider from "@material-ui/core/Divider";
 import "./css/header.css";
 
-import { MacroContext } from "./App";
+import { MacroContextConsumer } from "./context/MacroContext";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menu: false,
-      heightUnit: "cm"
-      //weightUnit: "kg"
+      menu: false
     };
   }
 
@@ -30,15 +28,6 @@ class Header extends Component {
     this.setState({
       menu: open
     });
-  };
-
-  handleWeightUnit = event => {
-    this.setState({ weightUnit: event.target.value });
-    this.props.passedWeightUnit(event.target.value);
-  };
-  handleHeightUnit = event => {
-    this.setState({ heightUnit: event.target.value });
-    this.props.passedHeightUnit(event.target.value);
   };
 
   render() {
@@ -73,7 +62,7 @@ class Header extends Component {
                   </Toolbar>
                 </AppBar>
                 <div className="menu-content">
-                  <MacroContext.Consumer>
+                  <MacroContextConsumer>
                     {context => (
                       <React.Fragment>
                         <Divider />
@@ -84,9 +73,9 @@ class Header extends Component {
                             </FormLabel>
                             <RadioGroup
                               aria-label="Weight"
-                              name="weight"
+                              name="weightUnit"
                               value={context.state.weightUnit}
-                              onChange={context.handleWeightUnit}
+                              onChange={context.handleRadio}
                             >
                               <FormControlLabel
                                 value="kg"
@@ -109,9 +98,9 @@ class Header extends Component {
                             </FormLabel>
                             <RadioGroup
                               aria-label="Height"
-                              name="height"
+                              name="heightUnit"
                               value={context.state.heightUnit}
-                              onChange={context.handleHeightUnit}
+                              onChange={context.handleRadio}
                             >
                               <FormControlLabel
                                 value="cm"
@@ -129,7 +118,7 @@ class Header extends Component {
                         <Divider />
                       </React.Fragment>
                     )}
-                  </MacroContext.Consumer>
+                  </MacroContextConsumer>
                 </div>
               </div>
             </SwipeableDrawer>

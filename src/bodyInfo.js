@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import MaskedInput from "react-text-mask";
 
-import { MacroContext } from "./App";
+import { MacroContextConsumer } from "./context/MacroContext";
 
 const style = {
   textField: {
@@ -46,25 +46,6 @@ class BodyInfo extends Component {
     };
   }
 
-  //rewrite these to one function
-  handleAge = age => event => {
-    this.setState({
-      [age]: event.target.value
-    });
-    this.props.passedAge(event.target.value);
-  };
-  handleHeight = height => event => {
-    this.setState({
-      [height]: event.target.value
-    });
-    this.props.passedHeight(event.target.value);
-  };
-  handleWeight = weight => event => {
-    this.setState({
-      [weight]: event.target.value
-    });
-    this.props.passedWeight(event.target.value);
-  };
   handleGender = gender => event => {
     this.setState(
       {
@@ -129,15 +110,15 @@ class BodyInfo extends Component {
           Body Information
         </Typography>
 
-        <MacroContext.Consumer>
+        <MacroContextConsumer>
           {context => (
             <React.Fragment>
               <TextField
                 style={style.textField}
                 id="age"
                 label="Age"
-                value={this.state.age}
-                onChange={this.handleAge("age")}
+                value={context.state.age}
+                onChange={context.handleBody}
                 onBlur={this.validateAge}
                 type="number"
                 margin="normal"
@@ -149,8 +130,8 @@ class BodyInfo extends Component {
                   style={style.textField}
                   id="height"
                   label="Height"
-                  value={this.state.height}
-                  onChange={this.handleHeight("height")}
+                  value={context.state.height}
+                  onChange={context.handleBody}
                   onBlur={this.validateHeight}
                   type="number"
                   margin="normal"
@@ -168,8 +149,8 @@ class BodyInfo extends Component {
                 <TextField
                   style={style.textField}
                   label="Height"
-                  value={this.state.height}
-                  onChange={this.handleHeight("height")}
+                  value={context.state.height}
+                  onChange={context.handleBody}
                   onBlur={this.validateHeight}
                   id="height"
                   margin="normal"
@@ -189,8 +170,8 @@ class BodyInfo extends Component {
                 style={style.textField}
                 id="weight"
                 label="Weight"
-                value={this.state.weight}
-                onChange={this.handleWeight("weight")}
+                value={context.state.weight}
+                onChange={context.handleBody}
                 onBlur={this.validateWeight}
                 type="number"
                 margin="normal"
@@ -207,9 +188,11 @@ class BodyInfo extends Component {
               <TextField
                 style={style.textField}
                 select
+                id="gender"
                 label="Gender"
-                value={this.state.gender}
-                onChange={this.handleGender("gender")}
+                name="gender"
+                value={context.state.gender}
+                onChange={context.handleRadio}
                 //onBlur={this.validateGender}
                 margin="normal"
                 error={this.state.genderErrorText.length === 0 ? false : true}
@@ -220,7 +203,7 @@ class BodyInfo extends Component {
               </TextField>
             </React.Fragment>
           )}
-        </MacroContext.Consumer>
+        </MacroContextConsumer>
       </Paper>
     );
   }

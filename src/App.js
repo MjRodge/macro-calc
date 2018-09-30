@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Header from "./header";
 import CalcInput from "./calcInput";
+import MacroContextProvider from "./context/MacroContext";
 
 const theme = createMuiTheme({
   palette: {
@@ -20,36 +21,16 @@ const theme = createMuiTheme({
   }
 });
 
-//Create context to store data in app
-export const MacroContext = React.createContext();
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      menu: false,
-      heightUnit: "cm",
-      weightUnit: "kg"
-    };
-  }
-
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
-          <MacroContext.Provider
-            value={{
-              state: this.state,
-              handleWeightUnit: event =>
-                this.setState({ weightUnit: event.target.value }),
-              handleHeightUnit: event =>
-                this.setState({ heightUnit: event.target.value })
-            }}
-          >
+        <MacroContextProvider>
+          <div className="App">
             <Header />
             <CalcInput />
-          </MacroContext.Provider>
-        </div>
+          </div>
+        </MacroContextProvider>
       </MuiThemeProvider>
     );
   }

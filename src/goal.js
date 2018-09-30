@@ -39,9 +39,9 @@ class Goal extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.goal === "lose"}
+                    checked={context.state.goal === "Lose"}
                     onChange={context.handleRadio}
-                    value="lose"
+                    value="Lose"
                     name="goal"
                   />
                   <Typography className="selection-title">Lose</Typography>
@@ -58,9 +58,9 @@ class Goal extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.goal === "maintain"}
+                    checked={context.state.goal === "Maintain"}
                     onChange={context.handleRadio}
-                    value="maintain"
+                    value="Maintain"
                     name="goal"
                   />
                   <Typography className="selection-title">Maintain</Typography>
@@ -78,9 +78,9 @@ class Goal extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.goal === "gain"}
+                    checked={context.state.goal === "Gain"}
                     onChange={context.handleRadio}
-                    value="gain"
+                    value="Gain"
                     name="goal"
                   />
                   <Typography className="selection-title">Gain</Typography>

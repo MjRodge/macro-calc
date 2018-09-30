@@ -39,9 +39,9 @@ class ActivityInfo extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.activityLevel === "sedentary"}
+                    checked={context.state.activityLevel === "Sedentary"}
                     onChange={context.handleRadio}
-                    value="sedentary"
+                    value="Sedentary"
                     name="activityLevel"
                   />
                   <Typography className="selection-title">Sedentary</Typography>
@@ -58,9 +58,9 @@ class ActivityInfo extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.activityLevel === "light"}
+                    checked={context.state.activityLevel === "Light"}
                     onChange={context.handleRadio}
-                    value="light"
+                    value="Light"
                     name="activityLevel"
                   />
                   <Typography className="selection-title">Light</Typography>
@@ -78,9 +78,9 @@ class ActivityInfo extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.activityLevel === "moderate"}
+                    checked={context.state.activityLevel === "Moderate"}
                     onChange={context.handleRadio}
-                    value="moderate"
+                    value="Moderate"
                     name="activityLevel"
                   />
                   <Typography className="selection-title">Moderate</Typography>
@@ -100,9 +100,9 @@ class ActivityInfo extends Component {
               >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Radio
-                    checked={context.state.activityLevel === "heavy"}
+                    checked={context.state.activityLevel === "Heavy"}
                     onChange={context.handleRadio}
-                    value="heavy"
+                    value="Heavy"
                     name="activityLevel"
                   />
                   <Typography className="selection-title">Heavy</Typography>

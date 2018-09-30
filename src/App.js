@@ -1,51 +1,54 @@
-import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Header from './header';
-import CalcInput from './calcInput';
+import React, { Component } from "react";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Header from "./header";
+import CalcInput from "./calcInput";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#819ca9',
-      main: '#546e7a',
-      dark: '#29434e',
-      contrastText: '#ffffff',
+      light: "#819ca9",
+      main: "#546e7a",
+      dark: "#29434e",
+      contrastText: "#ffffff"
     },
     secondary: {
-      light: '#ffd149',
-      main: '#ffa000',
-      dark: '#c67100',
-      contrastText: '#000000',
-    },
-  },
+      light: "#ffd149",
+      main: "#ffa000",
+      dark: "#c67100",
+      contrastText: "#000000"
+    }
+  }
 });
+
+//Create context to store data in app
+export const MacroContext = React.createContext();
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       menu: false,
-      heightUnit: 'cm',
-      weightUnit: 'kg',
+      heightUnit: "cm",
+      weightUnit: "kg"
     };
   }
-  handlePassedHeightUnit = passedHeightUnit => {
-    this.setState({ heightUnit: passedHeightUnit })
-  };
-  handlePassedWeightUnit = passedWeightUnit => {
-    this.setState({ weightUnit: passedWeightUnit })
-  };
 
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-          <Header
-            passedHeightUnit={this.handlePassedHeightUnit}
-            passedWeightUnit={this.handlePassedWeightUnit} />
-          <CalcInput
-            passedHeightUnit={this.state.heightUnit}
-            passedWeightUnit={this.state.weightUnit} />
+          <MacroContext.Provider
+            value={{
+              state: this.state,
+              handleWeightUnit: event =>
+                this.setState({ weightUnit: event.target.value }),
+              handleHeightUnit: event =>
+                this.setState({ heightUnit: event.target.value })
+            }}
+          >
+            <Header />
+            <CalcInput />
+          </MacroContext.Provider>
         </div>
       </MuiThemeProvider>
     );
